@@ -71,11 +71,11 @@ cat_features = [
     "native-country",
 ]
 
-model = load("./model/model.joblib")
+model = load("model/model.joblib")
 
-with open("./model/encoder", "rb") as enc:
+with open("model/encoder", "rb") as enc:
     encoder = pickle.load(enc)
-with open("./model/lb", "rb") as f:
+with open("model/lb", "rb") as f:
     lb = pickle.load(f)
 
 
