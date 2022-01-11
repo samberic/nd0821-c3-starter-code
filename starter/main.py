@@ -1,16 +1,20 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import pandas as pd
-from joblib import load
 import pickle
-# Instantiate the app.
-from starter.ml.data import process_data
-from fastapi.encoders import jsonable_encoder
-app = FastAPI()
 import uvicorn
 
+import pandas as pd
+from fastapi import FastAPI
+from joblib import load
+from pydantic import BaseModel
+
+# Instantiate the app.
+from starter.ml.data import process_data
+
+app = FastAPI()
+
+
 def to_dashes(string: str) -> str:
-    return string.replace('_', '-')
+    return string.replace("_", "-")
+
 
 class Value(BaseModel):
     age: int
@@ -45,7 +49,7 @@ class Value(BaseModel):
                 "capital_gain": 2174,
                 "capital_loss": 0,
                 "hours_per_week": 40,
-                "native_country": "United-States"
+                "native_country": "United-States",
             }
         }
 
@@ -54,6 +58,7 @@ class Value(BaseModel):
 @app.get("/")
 async def say_hello():
     return {"greeting": "Welcome to this exciting coursework!"}
+
 
 cat_features = [
     "workclass",
@@ -66,23 +71,29 @@ cat_features = [
     "native-country",
 ]
 
-model = load('./model/model.joblib')
+model = load("./model/model.joblib")
 
 with open("./model/encoder", "rb") as enc:
     encoder = pickle.load(enc)
 with open("./model/lb", "rb") as f:
     lb = pickle.load(f)
 
+
 @app.post("/model/")
 async def do_inference(item: Value):
     d = item.dict(by_alias=True)
     test_frame = pd.DataFrame([d], columns=d.keys())
     X, _, _, _ = process_data(
-        test_frame, categorical_features=cat_features, training=False, encoder=encoder, lb=lb
+        test_frame,
+        categorical_features=cat_features,
+        training=False,
+        encoder=encoder,
+        lb=lb,
     )
 
     y = model.predict(X)
     return {"result": lb.inverse_transform(y)[0]}
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

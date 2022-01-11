@@ -1,7 +1,7 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 
-from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -20,19 +20,21 @@ def train_model(X_train, y_train):
         Trained machine learning model.
     """
 
-    #lr = LogisticRegression(max_iter=1000)
-  #  lr.fit(X_train, y_train)
+    # lr = LogisticRegression(max_iter=1000)
+    #  lr.fit(X_train, y_train)
 
-   # return lr
+    # return lr
 
     clf = RandomForestClassifier(n_estimators=100)
     clf.fit(X_train, y_train)
 
     return clf
 
+
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, recall, and F1.
+    Validates the trained machine learning model using precision, recall,
+    and F1.
 
     Inputs
     ------
@@ -53,7 +55,7 @@ def compute_model_metrics(y, preds):
 
 
 def inference(model, X):
-    """ Run model inferences and return the predictions.
+    """Run model inferences and return the predictions.
 
     Inputs
     ------

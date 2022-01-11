@@ -16,10 +16,11 @@ cat_features = [
     "native-country",
 ]
 
+
 def slice_census(df, feature):
     result = ""
 
-    model = load('../../model/model.joblib')
+    model = load("../../model/model.joblib")
 
     with open("../../model/encoder", "rb") as enc:
         encoder = pickle.load(enc)
@@ -30,7 +31,12 @@ def slice_census(df, feature):
         df_temp = df[df[feature] == cls]
 
         X_test, y_test, _, _ = process_data(
-            df_temp, categorical_features=cat_features, label="salary", training=False,encoder=encoder, lb=lb
+            df_temp,
+            categorical_features=cat_features,
+            label="salary",
+            training=False,
+            encoder=encoder,
+            lb=lb,
         )
         preds = inference(model, X_test)
 
@@ -47,5 +53,5 @@ text = slice_census(df, "education")
 text += "========================\n"
 text += slice_census(df, "race")
 
-with open('slice_output.txt', 'w') as f:
+with open("slice_output.txt", "w") as f:
     f.write(text)

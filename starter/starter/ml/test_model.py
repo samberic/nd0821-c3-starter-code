@@ -1,6 +1,7 @@
-from .model import train_model, compute_model_metrics
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
+
+from model import train_model
 
 
 def test_model_type():
