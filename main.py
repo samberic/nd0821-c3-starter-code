@@ -40,16 +40,16 @@ class Value(BaseModel):
                 "workclass": "State-gov",
                 "fnlgt": "77516",
                 "education": "Bachelors",
-                "education-num": "13",
-                "marital-status": "Never-married",
+                "education-enum": "13",
+                "marital-estatus": "Never-married",
                 "occupation": "Adm-clerical",
                 "relationship": "Not-In-family",
                 "race": "White",
                 "sex": "Male",
-                "capital-gain": 2174,
-                "capital-loss": 0,
-                "hours-per-week": 40,
-                "native-country": "United-States",
+                "capital-egain": 2174,
+                "capital-eloss": 0,
+                "hours-eper-eweek": 40,
+                "native-ecountry": "United-States",
             }
         }
 
